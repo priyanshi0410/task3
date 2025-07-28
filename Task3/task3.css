@@ -1,0 +1,289 @@
+
+        /* --- Classy & Elegant Theme CSS --- */
+        :root {
+            --bg-color: #0d1b2a;
+            --primary-color: #1b263b;
+            --secondary-color: #2a3a50;
+            --border-color: #415a77;
+            --font-color: #e0e1dd;
+            --accent-color: #d4af37; /* Gold */
+            --x-color: #e0e1dd;
+            --o-color: #e0e1dd;
+            --danger-color: #b56576;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-color);
+            color: var(--font-color);
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background-color: var(--primary-color);
+            padding: 2.5rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* --- Scoreboard --- */
+        .scoreboard {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem auto;
+            max-width: 400px;
+            background-color: transparent;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .score {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .player {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #scoreX, #scoreO, #scoreDraw {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        #scoreDraw {
+            color: var(--font-color);
+        }
+        #scoreX, #scoreO {
+            color: var(--accent-color);
+        }
+
+        /* --- Game Status --- */
+        #status {
+            margin: 2rem 0;
+            font-size: 1.2em;
+            font-weight: 400;
+            min-height: 30px;
+            transition: opacity 0.3s;
+        }
+
+        /* --- Game Board --- */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 15px; /* Increased gap for a more spacious look */
+            margin: 1.5rem auto;
+            position: relative;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.4s ease, transform 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        }
+        
+        .cell svg {
+            width: 55%;
+            height: 55%;
+            stroke-width: 8;
+            pointer-events: none;
+            transition: stroke 0.4s;
+        }
+        
+        /* Player Icon Styles */
+        .cell .icon-x { stroke: var(--x-color); }
+        .cell .icon-o { stroke: var(--o-color); }
+
+        .cell:hover {
+            background-color: var(--border-color);
+            transform: translateY(-5px);
+        }
+        
+        /* Highlight winning cells */
+        .cell.winning-cell {
+            background-color: var(--accent-color);
+            animation: glow 1.5s infinite alternate;
+        }
+
+        .cell.winning-cell .icon-x, .cell.winning-cell .icon-o {
+            stroke: var(--primary-color);
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #d4af37, 0 0 10px #d4af37, 0 0 15px #d4af37;
+            }
+            to {
+                box-shadow: 0 0 20px #d4af37, 0 0 30px #d4af37, 0 0 40px #d4af37;
+            }
+        }
+
+
+        /* --- Buttons --- */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid var(--accent-color);
+            background: transparent;
+            color: var(--accent-color);
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+        }
+        
+        #clear-score {
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+        
+        #clear-score:hover {
+            background-color: var(--danger-color);
+            color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(181, 101, 118, 0.2);
+        }
+
+        /* --- Winner Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 27, 42, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s, visibility 0.4s;
+        }
+        
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--primary-color);
+            padding: 2.5rem 3.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transform: scale(0.8);
+            transition: transform 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .modal-message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .modal-message svg {
+             width: 40px;
+             height: 40px;
+             stroke-width: 8;
+        }
+        
+        .modal-message .icon-x, .modal-message .icon-o {
+            stroke: var(--accent-color);
+        }
+
+        /* --- Elegant Sparkle Effect --- */
+        .sparkle {
+            position: absolute;
+            background: var(--accent-color);
+            border-radius: 50%;
+            animation: sparkle-anim 1s forwards;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        @keyframes sparkle-anim {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5) translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+
+  
